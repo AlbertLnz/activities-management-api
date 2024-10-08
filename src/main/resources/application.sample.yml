@@ -1,0 +1,15 @@
+server:
+  port: 4000
+
+spring:
+  application:
+    name: activities-management-api
+
+  datasource:
+    url: jdbc:mariadb://localhost:3306/activities_management_api
+    username: <your_username>
+    password: <your_password>
+  
+  jpa:
+    hibernate:
+      ddl-auto: update
