@@ -20,6 +20,10 @@ public class UserService {
     return (ArrayList<UserModel>) userRepository.findAll();
   }
 
+  public Optional<UserModel> getUserById(UUID id) {
+    return this.userRepository.findById(id);
+  }
+
   public UserModel createOneUser(UserModel user) {
     return this.userRepository.save(user);
   }
