@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
-@RequestMapping("/api/activities")
+@RequestMapping("/api/appActivitats/activities")
 public class ActivityController {
 
   @Autowired
