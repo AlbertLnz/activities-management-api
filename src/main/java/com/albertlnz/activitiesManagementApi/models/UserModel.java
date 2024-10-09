@@ -1,18 +1,19 @@
 package com.albertlnz.activitiesManagementApi.models;
 
 import java.util.UUID;
+import java.util.Set;
+import java.util.HashSet;
 
 import org.hibernate.annotations.UuidGenerator;
-
-import java.util.List;
-import java.util.ArrayList;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,7 +42,8 @@ public class UserModel {
   @Column(nullable = false, unique = true)
   private String email;
 
-  @OneToMany(cascade = CascadeType.ALL)
-  private List<ActivityModel> activities = new ArrayList<>();
+  @ManyToMany(cascade = CascadeType.ALL)
+  @JoinTable(name = "user_activities", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "activity_id"))
+  private Set<ActivityModel> activities = new HashSet<>();
 
 }
