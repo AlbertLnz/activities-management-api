@@ -36,11 +36,13 @@ public class UserService {
     }
   }
 
-  public void deleteOneUserByEmail(String email) {
+  public String deleteOneUserByEmail(String email) {
     Optional<UserModel> user = this.userRepository.findByEmail(email);
 
     if (user.isPresent()) {
-      this.userRepository.deleteById(user.get().getId());
+      UUID userId = user.get().getId();
+      this.userRepository.deleteById(userId);
+      return "User with id: " + userId + ", has been deleted successfully!";
     } else {
       throw new RuntimeException("User with email " + email + " not found.");
     }

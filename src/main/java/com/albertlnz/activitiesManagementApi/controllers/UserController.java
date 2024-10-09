@@ -6,10 +6,13 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.albertlnz.activitiesManagementApi.models.UserModel;
 import com.albertlnz.activitiesManagementApi.services.UserService;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,8 +37,13 @@ public class UserController {
   }
 
   @PutMapping("/{id}")
-  public Optional<UserModel> putMethodName(@PathVariable UUID id, @RequestBody UserModel user) {
+  public Optional<UserModel> updateUserByUUID(@PathVariable UUID id, @RequestBody UserModel user) {
     return this.userService.updateUserByUUID(id, user);
+  }
+
+  @DeleteMapping
+  public String deleteUserByEmail(@RequestParam String email) {
+    return this.userService.deleteOneUserByEmail(email);
   }
 
 }
