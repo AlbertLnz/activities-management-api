@@ -3,14 +3,18 @@ package com.albertlnz.activitiesManagementApi.services;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.List;
+import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import com.albertlnz.activitiesManagementApi.models.ActivityModel;
 import com.albertlnz.activitiesManagementApi.models.UserModel;
 import com.albertlnz.activitiesManagementApi.repositories.IActivityRepository;
 import com.albertlnz.activitiesManagementApi.repositories.IUserRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class UserService {
@@ -78,6 +82,16 @@ public class UserService {
 
     this.userRepository.save(user);
     return "User has been successfully enrolled in the activity";
+  }
+
+  public void loadUsersFromJsonFile() throws IOException {
+    ObjectMapper objectMapper = new ObjectMapper();
+
+    List<UserModel> users = objectMapper.readValue(
+        new ClassPathResource("data/users.json").getFile(),
+        objectMapper.getTypeFactory().constructCollectionType(List.class, UserModel.class));
+
+    userRepository.saveAll(users);
   }
 
 }

@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Andrés",
+    "surname": "Martínez",
+    "age": 48,
+    "email": "andres.martinez@gmail.com"
+  },
+  {
+    "name": "Maria",
+    "surname": "Peralta",
+    "age": 13,
+    "email": "maria_peralta@outlook.es"
+  },
+  {
+    "name": "Queralt",
+    "surname": "Milter",
+    "age": 85,
+    "email": "queralt.milter@gmail.fr"
+  }
+]

@@ -3,8 +3,10 @@ package com.albertlnz.activitiesManagementApi.controllers;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.UUID;
+import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,6 +56,16 @@ public class UserController {
   @PostMapping("/{email}/activities/{activityId}")
   public String postMethodName(@PathVariable String email, @PathVariable Long activityId) {
     return this.userService.beUpToAnActivityByEmail(email, activityId);
+  }
+
+  @PostMapping("/upload-json")
+  public ResponseEntity<String> uploadUsers() {
+    try {
+      userService.loadUsersFromJsonFile();
+      return ResponseEntity.ok("Usuarios cargados exitosamente desde el archivo JSON.");
+    } catch (IOException e) {
+      return ResponseEntity.status(500).body("Error al cargar los usuarios: " + e.getMessage());
+    }
   }
 
 }
