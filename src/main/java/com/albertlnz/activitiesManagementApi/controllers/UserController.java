@@ -51,4 +51,9 @@ public class UserController {
     return this.userService.deleteOneUserByEmail(email);
   }
 
+  @PostMapping("/{email}/activities/{activityId}")
+  public String postMethodName(@PathVariable String email, @PathVariable Long activityId) {
+    return this.userService.beUpToAnActivityByEmail(email, activityId);
+  }
+
 }

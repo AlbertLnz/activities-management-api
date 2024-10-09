@@ -7,7 +7,9 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.albertlnz.activitiesManagementApi.models.ActivityModel;
 import com.albertlnz.activitiesManagementApi.models.UserModel;
+import com.albertlnz.activitiesManagementApi.repositories.IActivityRepository;
 import com.albertlnz.activitiesManagementApi.repositories.IUserRepository;
 
 @Service
@@ -15,6 +17,9 @@ public class UserService {
 
   @Autowired
   private IUserRepository userRepository;
+
+  @Autowired
+  private IActivityRepository activityRepository;
 
   public ArrayList<UserModel> getAllUsers() {
     return (ArrayList<UserModel>) userRepository.findAll();
@@ -50,6 +55,29 @@ public class UserService {
     } else {
       throw new RuntimeException("User with email " + email + " not found.");
     }
+  }
+
+  public String beUpToAnActivityByEmail(String email, Long activityId) {
+    Optional<UserModel> userOptional = this.userRepository.findByEmail(email);
+    if (!userOptional.isPresent()) {
+      return "User not found";
+    }
+    UserModel user = userOptional.get();
+
+    Optional<ActivityModel> activityOptional = this.activityRepository.findById(activityId);
+    if (!activityOptional.isPresent()) {
+      return "Activity not found";
+    }
+    ActivityModel activity = activityOptional.get();
+
+    if (!user.getActivities().contains(activity)) {
+      user.getActivities().add(activity);
+    } else {
+      return "User is already enrolled in this activity";
+    }
+
+    this.userRepository.save(user);
+    return "User has been successfully enrolled in the activity";
   }
 
 }
