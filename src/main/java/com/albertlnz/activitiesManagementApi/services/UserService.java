@@ -2,6 +2,7 @@ package com.albertlnz.activitiesManagementApi.services;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,10 +24,11 @@ public class UserService {
     return this.userRepository.save(user);
   }
 
-  public Optional<UserModel> updateOneUserByNameAndSurname(String name, String surname, UserModel userRequest) {
-    Optional<UserModel> user = this.userRepository.findByNameAndSurname(name, surname);
+  public Optional<UserModel> updateUserByUUID(UUID id, UserModel userRequest) {
+    Optional<UserModel> user = this.userRepository.findById(id);
 
     if (user.isPresent()) {
+      userRequest.setId(user.get().getId());
       this.userRepository.save(userRequest);
       return Optional.of(userRequest);
     } else {
