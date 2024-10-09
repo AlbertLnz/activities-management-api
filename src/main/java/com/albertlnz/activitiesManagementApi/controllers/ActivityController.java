@@ -3,8 +3,10 @@ package com.albertlnz.activitiesManagementApi.controllers;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Set;
+import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -49,6 +51,16 @@ public class ActivityController {
   @DeleteMapping("/{id}")
   public String deleteUserById(@PathVariable Long id) {
     return this.activityService.deleteOneActivityById(id);
+  }
+
+  @PostMapping("/upload-json")
+  public ResponseEntity<String> uploadUsers() {
+    try {
+      activityService.loadActivitiesFromJsonFile();
+      return ResponseEntity.ok("Actividades cargadas exitosamente desde el archivo JSON.");
+    } catch (IOException e) {
+      return ResponseEntity.status(500).body("Error al cargar las actividades: " + e.getMessage());
+    }
   }
 
 }

@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.List;
+import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import com.albertlnz.activitiesManagementApi.dto.ActivityDTO;
@@ -13,6 +16,7 @@ import com.albertlnz.activitiesManagementApi.models.ActivityModel;
 import com.albertlnz.activitiesManagementApi.models.UserModel;
 import com.albertlnz.activitiesManagementApi.repositories.IActivityRepository;
 import com.albertlnz.activitiesManagementApi.repositories.IUserRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class ActivityService {
@@ -66,6 +70,16 @@ public class ActivityService {
     } else {
       throw new RuntimeException("Activity with id " + id + " not found.");
     }
+  }
+
+  public void loadActivitiesFromJsonFile() throws IOException {
+    ObjectMapper objectMapper = new ObjectMapper();
+
+    List<ActivityModel> activities = objectMapper.readValue(
+        new ClassPathResource("data/activities.json").getFile(),
+        objectMapper.getTypeFactory().constructCollectionType(List.class, ActivityModel.class));
+
+    activityRepository.saveAll(activities);
   }
 
 }

@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Yoga",
+    "description": "Yoga al aire libre",
+    "maxCapacity": 29
+  },
+  {
+    "name": "Taichí",
+    "description": "Clase de taichí para adolescentes",
+    "maxCapacity": 75
+  },
+  {
+    "name": "Boxeo",
+    "description": "Boxeo para mayores de 85 años",
+    "maxCapacity": 4
+  }
+]
