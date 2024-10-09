@@ -1,10 +1,23 @@
+## Introducción
+
+Este proyecto es una aplicación RESTful que permite gestionar actividades y usuarios. La aplicación se ha desarrollado utilizando Spring Boot y MySQL.
+
+
 ## Configuración
 
-- 1 Crear una base de datos llamada `activities_management_api`
+### Teniendo instalado Java & Maven
 
-- 2 Antes de ejecutar la aplicación, copia `application.example.yml` a `application.yml` y actualiza las credenciales de la base de datos con tus valores.
+- 1. Clona el repositorio
 
-```bash
+- 2. Accede al repositorio
+
+- 3. Crea una base de datos de nombre `activities_management_api` en MySQL
+
+- 4. Cambia el nombre del archivo de configuración utilizando este comando:
+```
 cp src/main/resources/application.sample.yml src/main/resources/application.yml
 ```
 
+### Teniendo instalado Docker
+
+- Utilizando el comando `docker-compose up` se levantará la aplicación en un contenedor Docker.
