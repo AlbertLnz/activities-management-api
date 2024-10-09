@@ -3,10 +3,12 @@ package com.albertlnz.activitiesManagementApi.services;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.albertlnz.activitiesManagementApi.dto.ActivityDTO;
 import com.albertlnz.activitiesManagementApi.models.ActivityModel;
 import com.albertlnz.activitiesManagementApi.models.UserModel;
 import com.albertlnz.activitiesManagementApi.repositories.IActivityRepository;
@@ -25,12 +27,15 @@ public class ActivityService {
     return (ArrayList<ActivityModel>) activityRepository.findAll();
   }
 
-  public Set<ActivityModel> getActivitiesByUserNameAndSurname(String name, String surname) {
+  public Set<ActivityDTO> getActivitiesByUserNameAndSurname(String name, String surname) {
     Optional<UserModel> userOptional = this.userRepository.findByNameAndSurname(name, surname);
 
     if (userOptional.isPresent()) {
       UserModel user = userOptional.get();
-      return user.getActivities();
+      return user.getActivities().stream()
+          .map(activity -> new ActivityDTO(activity.getId(), activity.getName(), activity.getDescription(),
+              activity.getMaxCapacity()))
+          .collect(Collectors.toSet());
     } else {
       throw new RuntimeException("User not found");
     }

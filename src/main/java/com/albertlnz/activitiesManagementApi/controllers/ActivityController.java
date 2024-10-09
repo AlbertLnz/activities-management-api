@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.albertlnz.activitiesManagementApi.dto.ActivityDTO;
 import com.albertlnz.activitiesManagementApi.models.ActivityModel;
 import com.albertlnz.activitiesManagementApi.services.ActivityService;
 
@@ -31,7 +32,7 @@ public class ActivityController {
   }
 
   @GetMapping("/{name}/{surname}")
-  public Set<ActivityModel> getMethodName(@PathVariable String name, @PathVariable String surname) {
+  public Set<ActivityDTO> getMethodName(@PathVariable String name, @PathVariable String surname) {
     return this.activityService.getActivitiesByUserNameAndSurname(name, surname);
   }
 
