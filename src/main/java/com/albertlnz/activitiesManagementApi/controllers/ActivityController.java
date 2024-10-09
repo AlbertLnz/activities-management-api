@@ -2,6 +2,7 @@ package com.albertlnz.activitiesManagementApi.controllers;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,11 @@ public class ActivityController {
   @GetMapping
   public ArrayList<ActivityModel> getAllActivities() {
     return this.activityService.getAllActivities();
+  }
+
+  @GetMapping("/{name}/{surname}")
+  public Set<ActivityModel> getMethodName(@PathVariable String name, @PathVariable String surname) {
+    return this.activityService.getActivitiesByUserNameAndSurname(name, surname);
   }
 
   @PostMapping

@@ -12,4 +12,7 @@ public interface IUserRepository extends JpaRepository<UserModel, UUID> {
   // JPA Query Method
   public Optional<UserModel> findByEmail(String email);
 
+  // JPA Query Method
+  public Optional<UserModel> findByNameAndSurname(String name, String surname);
+
 }
